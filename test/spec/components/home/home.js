@@ -12,15 +12,23 @@
     }));
 
     describe('addTodo',function() {
-      it('todosリスト件数', function () {
+      it('todos追加後のtodosリスト件数', function () {
         HomeCtrl.addTodo();
         expect(HomeCtrl.todos.length).toBe(5);
         expect(HomeCtrl.todos.length).not.toBe(4);
         expect(HomeCtrl.todos.length).not.toBe(6);
       });
-      it('todosリスト１件目', function () {
+      it('todos追加後のtodosリスト１件目', function () {
         HomeCtrl.addTodo();
         expect(HomeCtrl.todos[0]).toBe('Item 2');
+      });
+    });
+
+
+    describe('removeTodo',function() {
+      it('データ削除後のtodosリスト１件目', function () {
+        HomeCtrl.removeTodo(0);
+        expect(HomeCtrl.todos.length).toBe(3);
       });
     });
   });
