@@ -11,10 +11,9 @@
   </div>
 </div>
 </form>
-
 <!-- Todos list -->
 <div ui-sortable ng-model="home.todos">
-<p class="input-group" ng-repeat="todo in home.todos">
+<p class="input-group" ng-repeat="todo in home.todos track by $index">
   <input type="text" ng-model="todo" class="form-control">
   <span class="input-group-btn">
     <button class="btn btn-danger" ng-click="home.removeTodo($index)" aria-label="Remove">X</button>

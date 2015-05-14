@@ -1,19 +1,24 @@
 (function () {
   'use strict';
 
-  function HomeController() {
-  	this.todos = ['Item 2', 'Item 1', 'Item 3', 'Item 4'];
+  function HomeController(storage) {
+    this.storage = storage;
+    this.todos = this.storage.getTodo();
   }
 
-  angular.module('app.home', [])
+  angular.module('app.home', [
+    'app.service.todo'
+  ])
     .controller('HomeController', HomeController);
 
+  HomeController.$inject = ['TodoStorageService'];
+
   HomeController.prototype.addTodo = function () {
-    this.todos.push(this.todo);
+    this.todos = this.storage.addTodo(this.todo);
     this.todo = '';
   };
 
   HomeController.prototype.removeTodo = function (index) {
-    this.todos.splice(index, 1);
+    this.todos = this.storage.removeTodo(index);
   };
 })();
