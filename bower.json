@@ -10,5 +10,8 @@
     "angular-new-router": {
       "main": "dist/router.es5.js"
     }
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.3.15"
   }
 }
