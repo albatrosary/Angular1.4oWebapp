@@ -24,6 +24,7 @@
     "describe": true,
     "beforeEach": true,
     "inject": true,
-    "it": true
+    "it": true,
+    "jasmine": true
   }
 }

@@ -10,6 +10,17 @@
         storage.setItem(KEY, JSON.stringify(_todos));
     }
 
+    var get = function() {
+      var todos = JSON.parse(storage.getItem(KEY));
+
+      if (!todos) {
+        todos = [];
+      }
+      return todos;
+    }
+
+    _todos = get();
+
     return {
       addTodo: function (todo) {
         _todos.push(todo);
@@ -26,12 +37,7 @@
       },
 
       getTodo: function() {
-        _todos = JSON.parse(storage.getItem(KEY));
-
-        if (!_todos) {
-          _todos = [];
-        }
-        return _todos;
+        return get();
       }
     }
   }

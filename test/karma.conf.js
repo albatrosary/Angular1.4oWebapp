@@ -37,7 +37,8 @@ module.exports = function(config) {
       'app/components/home/home.js',
       'app/main.js',
       // テストコード
-      'test/spec/**/*.js'
+      'test/spec/**/*.mock.js',
+      'test/spec/**/*.spec.js'
     ],
 
 
