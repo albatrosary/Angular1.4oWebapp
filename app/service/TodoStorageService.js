@@ -8,7 +8,6 @@
 
     var save = function() {
         storage.setItem(KEY, JSON.stringify(_todos));
-        return true;
     }
 
     return {
