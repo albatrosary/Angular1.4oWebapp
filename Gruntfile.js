@@ -395,7 +395,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
+      'wiredep:app',
+      'wiredep:sass',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -410,10 +411,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'wiredep',
+    'wiredep:test',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
+    'jshint:test',
     'karma'
   ]);
 
