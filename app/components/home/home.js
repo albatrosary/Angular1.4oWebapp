@@ -3,6 +3,8 @@
 
   function HomeController(StorageService) {
     this.StorageService = StorageService;
+    
+    this.todo = '';
     this.todos = StorageService.getTodo();
   }
 
