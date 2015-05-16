@@ -12,7 +12,7 @@ exports.config = {
     'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
+  baseUrl: 'http://localhost:9001',
 
   specs: [
     '../e2e/spec/**/*.spec.js'

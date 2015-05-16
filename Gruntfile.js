@@ -102,6 +102,24 @@ module.exports = function (grunt) {
           }
         }
       },
+      e2e: {
+        options: {
+          open: false,
+          port: 9001,
+          livereload: false,
+          middleware: function(connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use('/bower_components', connect.static('./bower_components')),
+              connect.static(config.app),
+              connect().use(function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+              })
+            ];
+          }
+        }
+      },
       dist: {
         options: {
           base: '<%= config.dist %>',
@@ -158,7 +176,7 @@ module.exports = function (grunt) {
         keepAlive: true, // If false, the grunt process stops when the test fails. 
         noColor: false // If true, protractor will not use colors in its output. 
       },
-      my_target: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too. 
+      e2e: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too. 
         options: {
           configFile: "e2e/protractor.conf.js" // Target-specific config file 
         }
@@ -428,6 +446,11 @@ module.exports = function (grunt) {
     'connect:test',
     'jshint:test',
     'karma'
+  ]);
+
+  grunt.registerTask('e2e', [
+    'connect:e2e',
+    'protractor:e2e'
   ]);
 
   grunt.registerTask('build', [
