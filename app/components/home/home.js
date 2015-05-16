@@ -2,21 +2,18 @@
   'use strict';
 
   function HomeController(storage) {
-
-    var _this = this;
-    var _storage = storage;
-
-    _this.todos = _storage.getTodo();
-
-    this.addTodo = function () {
-      _this.todos = _storage.addTodo(_this.todo);
-      _this.todo = '';
-    };
-
-    this.removeTodo = function (index) {
-      _this.todos = _storage.removeTodo(index);
-    };
+    this.storage = storage;
+    this.todos = storage.getTodo();
   }
+
+  HomeController.prototype.addTodo = function () {
+    this.todos = this.storage.addTodo(this.todo);
+    this.todo = '';
+  };
+
+  HomeController.prototype.removeTodo = function (index) {
+    this.todos = this.storage.removeTodo(index);
+  };
 
   angular.module('app.home', [
     'app.service.todo'
