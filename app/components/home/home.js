@@ -17,8 +17,8 @@
     this.todos = this.StorageService.removeTodo(index);
   };
 
-  angular.module('app.home', [
-    'app.service.todo'
+  angular.module('todos.home', [
+    'todos.service.todo'
   ])
     .controller('HomeController', HomeController);
 

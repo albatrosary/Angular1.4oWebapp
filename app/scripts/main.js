@@ -6,7 +6,9 @@
 
   angular.module('todos', [
     'ngNewRouter',
-    'app.home'
+    'todos.home',
+    'todos.about',
+    'todos.contact',
     ])
     .controller('AppController', [AppController]);
 

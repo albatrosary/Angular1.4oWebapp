@@ -42,6 +42,6 @@
     }
   }
 
-  angular.module('app.service.todo',[])
+  angular.module('todos.service.todo',[])
     .factory('TodoStorageService', TodoStorageService);
 })();
