@@ -245,12 +245,27 @@ module.exports = function (grunt) {
             }
           }
       },
+
       sass: {
         src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
-
+    injector: {
+      options: {
+        // Task-specific options go here. 
+        transform: function(filePath) {
+          filePath = filePath.replace('/app/', '');
+          return '<script src="' + filePath + '"></script>';
+        }
+      },
+      js: {
+        // Target-specific file lists and/or options go here.
+        files: {
+          '<%= config.app %>/index.html': ['<%= config.app %>/components/{,*/}*.js', '<%= config.app %>/service/{,*/}*.js'],
+        } 
+      },
+    },
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -426,6 +441,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep:app',
       'wiredep:sass',
+      'injector:js',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',

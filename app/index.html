@@ -57,10 +57,12 @@
     <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="service/TodoStorageService.js"></script>
-        <script src="components/home/home.js"></script>
+        <!-- injector:js -->
         <script src="components/about/about.js"></script>
         <script src="components/contact/contact.js"></script>
+        <script src="components/home/home.js"></script>
+        <script src="service/TodoStorageService.js"></script>
+        <!-- endinjector -->
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
