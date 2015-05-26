@@ -284,3 +284,41 @@ Gruntfile.js を変更： wiredep句の下辺りに追加
 $ grunt serve
 ```
 
+### jshintのエラーを解消
+
+「angularは定義されていない」というエラーが発生しているので.jshintrcを修正
+
+```json
+  "globals": {
+    "angular": true
+  }
+```
+を追加する
+
+```json
+{
+  "node": true,
+  "browser": true,
+  "esnext": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "jquery": true,
+  "globals": {
+    "angular": true
+  }
+}
+```
+
