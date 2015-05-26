@@ -322,3 +322,95 @@ $ grunt serve
 }
 ```
 
+### todosの作成
+
+#### home.jsへhtml.htmlに対応するイベントを定義
+
+```javascript
+(function () {
+  'use strict';
+
+  function HomeController(StorageService) {
+    this.StorageService = StorageService;
+    
+    this.todo = '';
+    this.todos = StorageService.getTodo();
+  }
+
+  HomeController.prototype.addTodo = function () {
+    this.todos = this.StorageService.addTodo(this.todo);
+    this.todo = '';
+  };
+
+  HomeController.prototype.removeTodo = function (index) {
+    this.todos = this.StorageService.removeTodo(index);
+  };
+
+  angular.module('todos.home', [
+    'todos.service.todo'
+  ])
+    .controller('HomeController', HomeController);
+
+  HomeController.$inject = ['TodoStorageService'];
+})();
+```
+
+#### home.jsで利用するサービスを定義
+
+```
+$ mkdir app/service
+$ touch app/service/TodoStorageService.js
+```
+
+ロジックを作成
+
+```javascript
+(function(){
+  'use strict';
+
+  function TodoStorageService() {
+    var storage = window.localStorage;
+    var KEY = 'TODO';
+    var _todos;
+
+    var save = function() {
+        storage.setItem(KEY, JSON.stringify(_todos));
+    }
+
+    var get = function() {
+      var todos = JSON.parse(storage.getItem(KEY));
+
+      if (!todos) {
+        todos = [];
+      }
+      return todos;
+    }
+
+    _todos = get();
+
+    return {
+      addTodo: function (todo) {
+        _todos.push(todo);
+        save();
+
+        return _todos;
+      },
+
+      removeTodo: function (index) {
+        _todos.splice(index, 1);
+        save();
+
+        return _todos;
+      },
+
+      getTodo: function() {
+        return get();
+      }
+    }
+  }
+
+  angular.module('todos.service.todo',[])
+    .factory('TodoStorageService', TodoStorageService);
+})();
+```
+
