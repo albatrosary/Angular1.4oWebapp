@@ -3,7 +3,7 @@
 
   describe('Controller: HomeController', function () {
 
-    beforeEach(module('app.home'));
+    beforeEach(module('todos.home'));
 
     var HomeCtrl;
 

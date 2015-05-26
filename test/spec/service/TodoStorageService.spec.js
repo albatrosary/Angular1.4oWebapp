@@ -3,7 +3,7 @@
 
   describe('Service: TodoStorageService', function () {
 
-    beforeEach(module('app.service.todo'));
+    beforeEach(module('todos.service.todo'));
 
     var Service;
     beforeEach(inject(function (_TodoStorageService_) {
