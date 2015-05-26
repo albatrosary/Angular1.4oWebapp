@@ -414,3 +414,77 @@ $ touch app/service/TodoStorageService.js
 })();
 ```
 
+### karmaのインストール
+
+```
+$ npm install grunt-karma --save-dev
+$ npm install karma-jasmine --save-dev
+$ npm install karma-phantomjs-launcher --save-dev
+```
+
+```
+    jshint: {
+
+      ... 省略
+
+    },
+
+    // karma testing framework configuration options
+    karma: {
+      unit: {
+        configFile: 'test/karma.conf.js',
+        singleRun: true
+      }
+    },
+
+      ... 省略
+
+    wiredep: {
+      app: {
+        ignorePath: /^\/|\.\.\//,
+        src: ['<%= config.app %>/index.html'],
+        exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']
+      },
+      test: {
+        devDependencies: true,
+        src: '<%= karma.unit.configFile %>',
+        ignorePath:  /\.\.\//,
+        fileTypes:{
+          js: {
+            block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
+              detect: {
+                js: /'(.*\.js)'/gi
+              },
+              replace: {
+                js: '\'{{filePath}}\','
+              }
+            }
+          }
+      },
+
+      ... 省略
+
+  grunt.registerTask('test', [
+    'clean:server',
+    'wiredep:test',
+    'concurrent:test',
+    'autoprefixer',
+    'connect:test',
+    'jshint:test',
+    'karma'
+  ]);
+
+```
+
+#### その他
+
+test以下のディレクトリを参照
+
+### protractorのインストール
+
+```
+$ npm install protractor --save-dev
+$ npm install grunt-protractor-runner --save-dev
+$ npm install grunt-protractor-webdriver --save-dev
+$ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
+```
