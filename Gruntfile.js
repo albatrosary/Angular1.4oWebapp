@@ -465,6 +465,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('e2e', [
+    'build',
     'connect:e2e',
     'protractor:e2e'
   ]);
