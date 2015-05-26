@@ -2,6 +2,10 @@
 
 ## ハンズオンの進め方
 
+### YEOMANのインストール
+
+[YEOMANをインストールしよう！（だけど解説はMACだけね）](http://albatrosary.hateblo.jp/entry/2014/03/23/105356)
+
 ### generator-webappのインストール
 
 ```
