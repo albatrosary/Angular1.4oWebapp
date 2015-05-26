@@ -422,6 +422,7 @@ $ npm install karma-jasmine --save-dev
 $ npm install karma-phantomjs-launcher --save-dev
 ```
 
+Gruntfile.jsの設定
 ```
     jshint: {
 
@@ -488,3 +489,74 @@ $ npm install grunt-protractor-runner --save-dev
 $ npm install grunt-protractor-webdriver --save-dev
 $ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
 ```
+
+Gruntfile.jsの設定
+```javascript
+
+      ... 省略
+
+    connect: {
+
+      ... 省略
+
+      test: {
+
+      ... 省略
+
+      },
+      e2e: {
+        options: {
+          open: false,
+          port: 9001,
+          livereload: false,
+          middleware: function(connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use('/bower_components', connect.static('./bower_components')),
+              connect.static(config.app),
+              connect().use(function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+              })
+            ];
+          }
+        }
+      },
+
+    // karma testing framework configuration options
+    karma: {
+      unit: {
+        configFile: 'test/karma.conf.js',
+        singleRun: true
+      }
+    },
+    protractor: {
+      options: {
+        keepAlive: true, // If false, the grunt process stops when the test fails. 
+        noColor: false // If true, protractor will not use colors in its output. 
+      },
+      e2e: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too. 
+        options: {
+          configFile: 'e2e/protractor.conf.js' // Target-specific config file 
+        }
+      }
+    },
+
+      ... 省略
+
+  grunt.registerTask('test', [
+
+      ... 省略
+
+  ]);
+
+  grunt.registerTask('e2e', [
+    'build',
+    'connect:e2e',
+    'protractor:e2e'
+  ]);
+```
+
+#### その他
+
+e2e以下のディレクトリを参照
