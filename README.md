@@ -491,7 +491,7 @@ test以下のディレクトリを参照
 $ npm install protractor --save-dev
 $ npm install grunt-protractor-runner --save-dev
 $ npm install grunt-protractor-webdriver --save-dev
-$ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
+$ node_modules/protractor/bin/webdriver-manager update
 ```
 
 Gruntfile.jsの設定
