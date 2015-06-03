@@ -116,7 +116,17 @@ module.exports = function (grunt) {
         }
       }
     },
-
+    express: {
+      options: {
+        // Override defaults here 
+        port: 8000
+      },
+      dev: {
+        options: {
+          script: 'server/app.js'
+        }
+      }
+    },
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -427,6 +437,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'browserSync:livereload',
+      'express:dev',
       'watch'
     ]);
   });

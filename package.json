@@ -1,7 +1,7 @@
 {
   "name": "webapp",
   "devDependencies": {
-    "grunt": "^0.4.5", 
+    "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.2.0",
     "grunt-browser-sync": "^2.1.2",
     "grunt-concurrent": "^1.0.0",
@@ -14,12 +14,13 @@
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.5.1",
+    "grunt-filerev": "^2.2.0",
     "grunt-injector": "^0.6.0",
     "grunt-karma": "^0.10.1",
     "grunt-newer": "^1.1.0",
     "grunt-protractor-runner": "^2.0.0",
     "grunt-protractor-webdriver": "^0.2.0",
-    "grunt-filerev": "^2.2.0",
     "grunt-sass": "^1.0.0",
     "grunt-svgmin": "^2.0.1",
     "grunt-usemin": "^3.0.0",
@@ -39,5 +40,9 @@
   },
   "engines": {
     "node": ">=0.12.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4"
   }
 }
