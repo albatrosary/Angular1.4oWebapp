@@ -1,4 +1,6 @@
-// Generated on 2015-05-14 using
+/*jshint node:true*/
+
+// Generated on 2015-06-03 using
 // generator-webapp 0.5.1
 'use strict';
 
@@ -35,7 +37,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['<%= config.app %>/{,directives,service,components}/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
           livereload: true
@@ -55,75 +57,62 @@ module.exports = function (grunt) {
       styles: {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
-      },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= config.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/images/{,*/}*'
-        ]
       }
     },
 
-    // The actual grunt server settings
-    connect: {
+    browserSync: {
       options: {
-        port: 9000,
-        open: true,
-        livereload: 35729,
-        // Change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        notify: false,
+        background: true
       },
       livereload: {
         options: {
-          middleware: function(connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app)
-            ];
+          files: [
+            '<%= config.app %>/{,*/}*.html',
+            '.tmp/styles/{,*/}*.css',
+            '<%= config.app %>/images/{,*/}*',
+            '<%= config.app %>/scripts/{,*/}*.js'
+          ],
+          port: 9000,
+          server: {
+            baseDir: ['.tmp', config.app],
+            routes: {
+              '/bower_components': './bower_components'
+            }
           }
         }
       },
       test: {
         options: {
-          open: false,
           port: 9001,
-          middleware: function(connect) {
-            return [
-              connect.static('.tmp'),
-              connect.static('test'),
-              connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app)
-            ];
+          open: false,
+          logLevel: 'silent',
+          host: 'localhost',
+          server: {
+            baseDir: ['.tmp', './test', config.app],
+            routes: {
+              '/bower_components': './bower_components'
+            }
           }
         }
       },
       e2e: {
         options: {
-          open: false,
           port: 9001,
+          open: false,
           livereload: false,
-          middleware: function(connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app),
-              connect().use(function (req, res, next) {
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                next();
-              })
-            ];
+          server: {
+            baseDir: ['.tmp', './test', config.app],
+            routes: {
+              '/bower_components': './bower_components'
+            }
           }
         }
       },
       dist: {
         options: {
-          base: '<%= config.dist %>',
-          livereload: false
+          background: false,
+          server: '<%= config.dist %>'
         }
       }
     },
@@ -154,13 +143,7 @@ module.exports = function (grunt) {
         '<%= config.app %>/scripts/{,*/}*.js',
         '!<%= config.app %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
-      ],
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/spec/{,*/}*.js']
-      }
+      ]
     },
 
     // karma testing framework configuration options
@@ -185,6 +168,8 @@ module.exports = function (grunt) {
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
+        sourceMap: true,
+        includePaths: ['bower_components'],
         loadPath: 'bower_components'
       },
       dist: {
@@ -210,7 +195,11 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
+        browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1'],
+        map: {
+          prev: '.tmp/styles/'
+        }
+        
       },
       dist: {
         files: [{
@@ -229,6 +218,10 @@ module.exports = function (grunt) {
         src: ['<%= config.app %>/index.html'],
         exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']
       },
+      sass: {
+        src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
+      },
       test: {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
@@ -245,11 +238,6 @@ module.exports = function (grunt) {
             }
           }
       },
-
-      sass: {
-        src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
-      }
     },
     injector: {
       options: {
@@ -267,17 +255,15 @@ module.exports = function (grunt) {
       },
     },
     // Renames files for browser caching purposes
-    rev: {
+    filerev: {
       dist: {
-        files: {
-          src: [
-            '<%= config.dist %>/scripts/{,*/}*.js',
-            '<%= config.dist %>/styles/{,*/}*.css',
-            '<%= config.dist %>/images/{,*/}*.*',
-            '<%= config.dist %>/styles/fonts/{,*/}*.*',
-            '<%= config.dist %>/*.{ico,png}'
-          ]
-        }
+        src: [
+          '<%= config.dist %>/scripts/{,*/}*.js',
+          '<%= config.dist %>/styles/{,*/}*.css',
+          '<%= config.dist %>/images/{,*/}*.*',
+          '<%= config.dist %>/styles/fonts/{,*/}*.*',
+          '<%= config.dist %>/*.{ico,png}'
+        ]
       }
     },
 
@@ -337,7 +323,8 @@ module.exports = function (grunt) {
           removeCommentsFromCDATA: true,
           removeEmptyAttributes: true,
           removeOptionalTags: true,
-          removeRedundantAttributes: true,
+          // true would impact styles with attribute selectors
+          removeRedundantAttributes: false,
           useShortDoctype: true
         },
         files: [{
@@ -391,9 +378,6 @@ module.exports = function (grunt) {
             'styles/fonts/{,*/}*.*'
           ]
         }, {
-          src: 'node_modules/apache-server-configs/dist/.htaccess',
-          dest: '<%= config.dist %>/.htaccess'
-        }, {
           expand: true,
           dot: true,
           cwd: '.',
@@ -429,12 +413,10 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
-    if (grunt.option('allow-remote')) {
-      grunt.config.set('connect.options.hostname', '0.0.0.0');
-    }
+  grunt.registerTask('serve', 'start the server and preview your app', function (target) {
+
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'browserSync:dist']);
     }
 
     grunt.task.run([
@@ -444,7 +426,7 @@ module.exports = function (grunt) {
       'injector:js',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'browserSync:livereload',
       'watch'
     ]);
   });
@@ -454,19 +436,25 @@ module.exports = function (grunt) {
     grunt.task.run([target ? ('serve:' + target) : 'serve']);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'wiredep:test',
-    'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'jshint:test',
-    'karma'
-  ]);
+  grunt.registerTask('test', function (target) {
+    if (target !== 'watch') {
+      grunt.task.run([
+        'clean:server',
+        'wiredep:test',
+        'concurrent:test',
+        'autoprefixer'
+      ]);
+    }
+
+    grunt.task.run([
+      'browserSync:test',
+      'karma'
+    ]);
+  });
 
   grunt.registerTask('e2e', [
     'build',
-    'connect:e2e',
+    'browserSync:e2e',
     'protractor:e2e'
   ]);
 
@@ -480,7 +468,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'copy:dist',
-    'rev',
+    'filerev',
     'usemin',
     'htmlmin'
   ]);
