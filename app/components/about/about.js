@@ -7,13 +7,36 @@
 (function () {
   'use strict';
 
+  /**
+   * Observer Pattern: Observable/Subject class
+   *
+   * @class AboutController
+   * @constructor
+   */
   function AboutController(InformationService) {
+
+    /**
+     * My property description.  Like other pieces of your comment blocks, 
+     * this can span multiple lines.
+     * 
+     * @property InformationService
+     * @type {Object}
+     * @default "InformationService"
+     */
     this.InformationService = InformationService;
   }
 
   /**
-    Resolves the longname, memberof, variation and name values of the given doclet.
-    @param {module:components/about.AboutController} activate
+  * My method description.  Like other pieces of your comment blocks, 
+  * this can span multiple lines.
+  *
+  * @method activate
+  * @param {String} foo Argument 1
+  * @param {Object} config A config object
+  * @param {String} config.name The name on the config object
+  * @param {Function} config.callback A callback function on the config object
+  * @param {Boolean} [extra=false] Do extra, optional work
+  * @return {Boolean} Returns true on success
   */
   AboutController.prototype.activate = function() {
     var _self = this;

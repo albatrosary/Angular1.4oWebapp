@@ -27,6 +27,8 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    pkg: grunt.file.readJSON('package.json'),
+
     // Project settings
     config: config,
 
@@ -119,7 +121,7 @@ module.exports = function (grunt) {
         options: {
           background: false,
           livereload: false,
-          server: 'doc'
+          server: 'docs'
         }
       },
       metricApp: {
@@ -161,7 +163,7 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
-      doc: 'doc'
+      doc: 'docs'
     },
     // plato
     plato: {
@@ -243,13 +245,16 @@ module.exports = function (grunt) {
         }]
       }
     },
-    jsdoc : {
-      dist : {
-        src: ['app/{,scripts,service,components}/**/*.js', 'README.md'],
+    yuidoc: {
+      compile: {
+        name: '<%= pkg.name %>',
+        description: '<%= pkg.description %>',
+        version: '<%= pkg.version %>',
+        url: '<%= pkg.homepage %>',
         options: {
-          destination: 'doc',
-          template : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template",
-          configure : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template/jsdoc.conf.json"
+          paths: 'app/components',
+          themedir: 'path/to/custom/theme/',
+          outdir: 'docs'
         }
       }
     },
@@ -543,7 +548,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('doc', [
     'clean:doc',
-    'jsdoc',
+    'yuidoc',
     'browserSync:doc'
   ]);
 
