@@ -114,6 +114,20 @@ module.exports = function (grunt) {
           background: false,
           server: '<%= config.dist %>'
         }
+      },
+      metricApp: {
+        options: {
+          background: false,
+          livereload: false,
+          server: 'report/plato/app'
+        }
+      },
+      metricTest: {
+        options: {
+          background: false,
+          livereload: false,
+          server: 'report/plato/test'
+        }
       }
     },
     express: {
@@ -141,7 +155,24 @@ module.exports = function (grunt) {
       },
       server: '.tmp'
     },
-
+    // plato
+    plato: {
+      options: {
+        options : {
+          jshint : grunt.file.readJSON('.jshintrc')
+        }
+      },
+      app:{
+        files: {
+          'report/plato/app': ['app/**/*.js']
+        }
+      },
+      test:{
+        files: {
+          'report/plato/test': ['test/**/*.js']
+        }
+      }
+    },
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -488,5 +519,15 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('metric', [
+    'plato',
+    'browserSync:metricApp'
+  ]);
+
+  grunt.registerTask('metricTest', [
+    'plato',
+    'browserSync:metricTest'
   ]);
 };
