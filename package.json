@@ -17,6 +17,7 @@
     "grunt-express-server": "^0.5.1",
     "grunt-filerev": "^2.2.0",
     "grunt-injector": "^0.6.0",
+    "grunt-jsdoc": "^0.6.7",
     "grunt-karma": "^0.10.1",
     "grunt-newer": "^1.1.0",
     "grunt-plato": "^1.2.1",

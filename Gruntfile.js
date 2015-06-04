@@ -115,6 +115,13 @@ module.exports = function (grunt) {
           server: '<%= config.dist %>'
         }
       },
+      doc: {
+        options: {
+          background: false,
+          livereload: false,
+          server: 'doc'
+        }
+      },
       metricApp: {
         options: {
           background: false,
@@ -153,7 +160,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      doc: 'doc'
     },
     // plato
     plato: {
@@ -235,7 +243,16 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+    jsdoc : {
+      dist : {
+        src: ['app/{,scripts,service,components}/**/*.js', 'README.md'],
+        options: {
+          destination: 'doc',
+          template : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template",
+          configure : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template/jsdoc.conf.json"
+        }
+      }
+    },
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
@@ -522,6 +539,12 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('doc', [
+    'clean:doc',
+    'jsdoc',
+    'browserSync:doc'
   ]);
 
   grunt.registerTask('metric', [
