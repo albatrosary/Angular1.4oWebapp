@@ -158,16 +158,19 @@ module.exports = function (grunt) {
     // plato
     plato: {
       options: {
-        options : {
-          jshint : grunt.file.readJSON('.jshintrc')
-        }
       },
       app:{
+        options : {
+          jshint : grunt.file.readJSON('.jshintrc')
+        },
         files: {
           'report/plato/app': ['app/**/*.js']
         }
       },
       test:{
+        options : {
+          jshint : grunt.file.readJSON('test/.jshintrc')
+        },
         files: {
           'report/plato/test': ['test/**/*.js']
         }
