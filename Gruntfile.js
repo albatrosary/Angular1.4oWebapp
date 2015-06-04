@@ -252,8 +252,7 @@ module.exports = function (grunt) {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: 'app/components',
-          themedir: 'path/to/custom/theme/',
+          paths: ['app/components', 'app/service'],
           outdir: 'docs'
         }
       }
